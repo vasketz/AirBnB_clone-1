@@ -60,6 +60,8 @@ class FileStorage:
         """Deletes an object"""
         if obj is None:
             return
-        else:
-            key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        try:
             FileStorage.__objects.pop(key)
+        except:
+            pass
