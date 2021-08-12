@@ -38,20 +38,18 @@ class DBStorage:
             valueQuery = self.__session.query(cls)
         else:
             valueQuery = self.__session.query(State).all()
-            valueQuery.extend(self.__session.query().all(City))
-            valueQuery.extend(self.__session.query().all(User))
-            valueQuery.extend(self.__session.query().all(Place))
-            valueQuery.extend(self.__session.query().all(Review))
-            valueQuery.extend(self.__session.query().all(Amenity))
-        myDict = {}
-        for obj in valueQuery:
-            key = "{}.{}".format(type(obj).__name__, obj.id)
-            myDict[key] = obj
-        return(myDict)
+            valueQuery.extend(self.__session.query(City).all())
+            valueQuery.extend(self.__session.query(User).all())
+            valueQuery.extend(self.__session.query(Place).all())
+            valueQuery.extend(self.__session.query(Review).all())
+            valueQuery.extend(self.__session.query(Amenity).all())
+
+        return {"{}.{}".format(type(obj).__name__, obj.id):
+                obj for obj in valueQuery}
 
     def new(self, obj):
         """ Add a object to database """
-        self.__session.add(self)
+        self.__session.add(obj)
 
     def save(self):
         """ Save a oject to database """
