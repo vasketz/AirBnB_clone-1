@@ -118,12 +118,13 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        arg = args.split(" ")
-        if arg[0] not in HBNBCommand.classes:
+        
+        args = args.split(" ")
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_list = {}
-        for par in arg[1:]:
+        for par in args[1:]:
             tmp = par.split("=")
             key = tmp[0]
             value = tmp[1]
@@ -134,13 +135,13 @@ class HBNBCommand(cmd.Cmd):
                 value = eval(value)
             new_list[key] = value
         if new_list == {}:
-            new_instance = HBNBCommand.classes[arg[0]]()
+            new_instance = HBNBCommand.classes[args[0]]()
         else:
-            new_instance = HBNBCommand.classes[arg[0]]()
+            new_instance = HBNBCommand.classes[args[0]]()
             for key, value in new_list.items():
                 setattr(new_instance, key, value)
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -222,11 +223,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(eval(args)).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
