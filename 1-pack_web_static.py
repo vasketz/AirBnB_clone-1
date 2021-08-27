@@ -11,9 +11,9 @@ from datetime import datetime
 def do_pack():
     local("mkdir -p versions")
     date_time = datetime.now().strftime("%Y%m%d%H%M%S")
-    file = local("tar -cvzf versions/web_static_{}.tgz ./web_static".format(
-                 date_time), capture=True)
+    file = "versions/web_static_{}.tgz".format(date_time)
+    local("tar -czvf {} web_static".format(file))
     if file.succeeded:
-        return ("versions/web_static_{}.tgz".format(date_time))
+        return file
     else:
         return None
