@@ -9,11 +9,11 @@ from datetime import datetime
 
 
 def do_pack():
-    local("mkdir -p versions")
-    date_time = datetime.now().strftime("%Y%m%d%H%M%S")
-    file = "versions/web_static_{}.tgz".format(date_time)
-    local("tar -czvf {} web_static".format(file))
-    if file.succeeded:
+    try:
+        local("mkdir -p versions")
+        date_time = datetime.now().strftime("%Y%m%d%H%M%S")
+        file = "versions/web_static_{}.tgz".format(date_time)
+        local("tar -czvf {} web_static".format(file))
         return file
-    else:
-        return None
+    except:
+        return
