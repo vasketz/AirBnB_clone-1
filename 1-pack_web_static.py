@@ -13,10 +13,10 @@ def do_pack():
     create a file .tgz
     """
     try:
+        local("mkdir -p versions")
         date_time = datetime.now().strftime("%Y%m%d%H%M%S")
         file = "versions/web_static_{}.tgz".format(date_time)
-        local("mkdir -p versions")
-        print("Packing web_static to {}".format(file))
         local("tar -czvf {} web_static".format(file))
-    except:
-        None
+        return file
+    else:
+        return None
