@@ -4,6 +4,7 @@ this Script generates a .tgz archive from the contents
 of the web_static folder
 """
 
+
 from fabric.api import *
 from datetime import datetime
 from os import path
@@ -22,12 +23,13 @@ def do_pack():
     else:
         return None
 
+
 def do_deploy(archive_path):
     """
+    descompress tar
     """
     if path.exist(archive_path) is False:
         return False
     file = archive_path.split("/")
 
     put(archive_path, "/tmp/")
-
