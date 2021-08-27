@@ -9,6 +9,9 @@ from datetime import datetime
 
 
 def do_pack():
+    """
+    create a file .tgz
+    """
     try:
         date_time = datetime.now().strftime("%Y%m%d%H%M%S")
         file = "versions/web_static_{}.tgz".format(date_time)
