@@ -34,19 +34,19 @@ def do_deploy(archive_path):
     """
     if path.exists(archive_path) is False:
         return False
-    file = archive_path.split("/")[1]
-    path_folder = file[:-4]
 
     put(archive_path, "/tmp/")
-    run("mkdir -p /data/web_static/releases/{}/".format(path_folder))
-    run("tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}".format(
-        file, path_folder))
-    run("rm -r /tmp/{}".format(file))
+    file = archive_path.replace(".tgz", "")
+    file = file.replace("versions/", "")
+    run("mkdir -p /data/web_static/releases/{}/".format(file))
+    run("tar -xzf /tmp/{}.tgz -C /data/web_static/releases/{}/".format(
+        file, file))
+    run("rm /tmp/{}.tgz".format(file))
     run("mv /data/web_static/releases/{}/web_static/* ".format(
-        path_folder) + "/data/web_static/releases/{}".format(path_folder))
-    run("rm -rf /data/web_static/releases/{}/web_static".format(path_folder))
+        file) + "/data/web_static/releases/{}/".format(file))
+    run("rm -rf /data/web_static/releases/{}/web_static".format(file))
     run("rm -rf /data/web_static/current")
-    run("ln -s /data/web_static/releases/{} /data/web_static/current/".format(
-        path_folder))
+    run("ln -s /data/web_static/releases/{}/ /data/web_static/current".format(
+        file))
     print("New version deployed!")
     return True
