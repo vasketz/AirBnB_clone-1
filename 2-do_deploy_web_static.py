@@ -6,6 +6,7 @@ of the web_static folder
 
 
 from fabric.api import *
+from datetime import datetime
 from os import path
 
 
@@ -13,9 +14,23 @@ env.user = 'ubuntu'
 env.hosts = ['34.74.231.67', '54.172.241.181']
 
 
+def do_pack():
+    """
+    create a file .tgz
+    """
+    try:
+        local("mkdir -p versions")
+        date_time = datetime.now().strftime("%Y%m%d%H%M%S")
+        file = "versions/web_static_{}.tgz".format(date_time)
+        local("tar -czvf {} web_static".format(file))
+        return file
+    except:
+        return None
+
+
 def do_deploy(archive_path):
     """
-    descompress tar, deploy on servers
+    descompress tar
     """
     if path.exists(archive_path) is False:
         return False
