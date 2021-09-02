@@ -18,5 +18,5 @@ def do_pack():
         file = "versions/web_static_{}.tgz".format(date_time)
         local("tar -czvf {} web_static".format(file))
         return file
-    else:
+    except:
         return None
