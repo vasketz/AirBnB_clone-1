@@ -12,7 +12,10 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def hello():
-    return "Hello_HBNH"
+    """
+    Funtion to print Hello HBNB!
+    """
+    return "Hello_HBNB!"
 
 
 if __name__ == "__main__":
