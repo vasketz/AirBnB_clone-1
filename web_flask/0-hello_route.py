@@ -15,7 +15,7 @@ def hello():
     """
     Funtion to print Hello HBNB!
     """
-    return "Hello_HBNB!"
+    return "Hello HBNB!"
 
 
 if __name__ == "__main__":
