@@ -1,0 +1,1 @@
+*This is the project AirBnB_clone_v2/Flask of Holberton School*
