@@ -65,3 +65,9 @@ class FileStorage:
             FileStorage.__objects.pop(key)
         except:
             pass
+
+    def close(self):
+        """
+        Desserializion JSON objects
+        """
+        self.reload()
